@@ -93,7 +93,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      8 min read
+      10 min read
     
 </span></p>
 
@@ -136,7 +136,10 @@ window.onload = wrap_img;
   <div class="post-content e-content" itemprop="articleBody">
     <ul class="section-nav">
 <li class="toc-entry toc-h2"><a href="#Download-and-prepare-the-dataset">Download and prepare the dataset </a></li>
-<li class="toc-entry toc-h1"><a href="#Building-DNN-Model">Building DNN Model </a>
+<li class="toc-entry toc-h1"><a href="#Loading-the-dataset">Loading the dataset </a></li>
+<li class="toc-entry toc-h1"><a href="#Create-input-pipeline">Create input pipeline </a></li>
+<li class="toc-entry toc-h1"><a href="#Building-DNN-Model">Building DNN Model </a></li>
+<li class="toc-entry toc-h1"><a href="#Training-the-model">Training the model </a>
 <ul>
 <li class="toc-entry toc-h2"><a href="#Keras-Tuner">Keras Tuner </a>
 <ul>
@@ -208,6 +211,15 @@ window.onload = wrap_img;
 </div>
     
 
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Loading-the-dataset">
+<a class="anchor" href="#Loading-the-dataset" aria-hidden="true"><span class="octicon octicon-link"></span></a>Loading the dataset<a class="anchor-link" href="#Loading-the-dataset"> </a>
+</h1>
+</div>
+</div>
+</div>
     
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -236,6 +248,24 @@ window.onload = wrap_img;
 
 <div class="inner_cell">
     <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="s2">"/tmp/data"</span><span class="p">):</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="s2">"/tmp/data"</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
 
@@ -244,7 +274,7 @@ window.onload = wrap_img;
 <span class="c1">#X_test_full = pd.read_csv('../input/tabular-playground-series-aug-2021/test.csv', index_col='id')</span>
 
 <span class="n">Xx</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'./input/train.csv'</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="s1">'id'</span><span class="p">)</span>
-<span class="n">X_test</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'./input/test.csv'</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="s1">'id'</span><span class="p">)</span>
+<span class="c1">#X_test = pd.read_csv('./input/test.csv', index_col='id')</span>
 </pre></div>
 
     </div>
@@ -263,8 +293,8 @@ window.onload = wrap_img;
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">Xx</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">deep</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">X</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">'loss'</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">Y</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">loss</span>              
-<span class="n">X</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">'loss'</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1">#Y = X.loss              </span>
+<span class="c1">#X.drop(['loss'], axis=1, inplace=True)</span>
 </pre></div>
 
     </div>
@@ -301,8 +331,8 @@ window.onload = wrap_img;
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
 <span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
 <span class="n">X_scaled</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-<span class="n">X_test_index</span> <span class="o">=</span> <span class="n">X_test</span><span class="o">.</span><span class="n">index</span>
-<span class="n">X_test_scaled</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="c1">#X_test_index = X_test.index</span>
+<span class="c1">#X_test_scaled = scaler.transform(X_test)</span>
 </pre></div>
 
     </div>
@@ -319,7 +349,7 @@ window.onload = wrap_img;
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_valid</span><span class="p">,</span> <span class="n">Y_train</span><span class="p">,</span> <span class="n">Y_valid</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X_scaled</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">test_size</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span><span class="n">stratify</span><span class="o">=</span><span class="n">Y</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">123</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">train</span><span class="p">,</span> <span class="n">valid</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">123</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -336,11 +366,130 @@ window.onload = wrap_img;
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">Y_train</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">X_valid</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">Y_valid</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">X_test</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">train</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">valid</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">train</span><span class="p">)</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">"/tmp/data/tabular-train.csv"</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">valid</span><span class="p">)</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">"/tmp/data/tabular-valid.csv"</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="c1">#pd.DataFrame(X_test_scaled).to_csv("/tmp/data/tabular-test.csv")</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>ls -l /tmp/data/*.csv
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'/tmp/data/tabular-train.csv'</span><span class="p">)</span><span class="o">.</span><span class="n">columns</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'/tmp/data/tabular-valid.csv'</span><span class="p">)</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'loss'</span><span class="p">)</span><span class="o">.</span><span class="n">columns</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Create-input-pipeline">
+<a class="anchor" href="#Create-input-pipeline" aria-hidden="true"><span class="octicon octicon-link"></span></a>Create input pipeline<a class="anchor-link" href="#Create-input-pipeline"> </a>
+</h1>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">LABEL_COLUMN</span> <span class="o">=</span> <span class="s1">'loss'</span>
+
+<span class="c1"># Specify numerical columns</span>
+<span class="c1"># Note you should create another list with STRING_COLS if you </span>
+<span class="c1"># had text data but in this case all features are numerical</span>
+<span class="n">NUMERIC_COLS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'f0'</span><span class="p">,</span> <span class="s1">'f1'</span><span class="p">,</span>
+                <span class="s1">'f2'</span><span class="p">,</span> <span class="s1">'f3'</span><span class="p">,</span>
+                <span class="s1">'f4'</span><span class="p">,</span> <span class="s1">'f5'</span><span class="p">,</span> <span class="s1">'f6'</span><span class="p">]</span>
+
+
+<span class="c1"># A function to separate features and labels</span>
+<span class="k">def</span> <span class="nf">features_and_labels</span><span class="p">(</span><span class="n">row_data</span><span class="p">):</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="n">row_data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">LABEL_COLUMN</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">row_data</span><span class="p">,</span> <span class="n">label</span>
+
+
+<span class="c1"># A utility method to create a tf.data dataset from a CSV file</span>
+<span class="k">def</span> <span class="nf">load_dataset</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">'eval'</span><span class="p">):</span>
+    <span class="n">dataset</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">experimental</span><span class="o">.</span><span class="n">make_csv_dataset</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">)</span>
+    
+    <span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">features_and_labels</span><span class="p">)</span>  <span class="c1"># features, label</span>
+    <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s1">'train'</span><span class="p">:</span>
+        <span class="c1"># Notice the repeat method is used so this dataset will loop infinitely</span>
+        <span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span><span class="o">.</span><span class="n">repeat</span><span class="p">()</span>
+        <span class="c1"># take advantage of multi-threading; 1=AUTOTUNE</span>
+        <span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">prefetch</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">dataset</span>
 </pre></div>
 
     </div>
@@ -359,6 +508,157 @@ window.onload = wrap_img;
 </div>
 </div>
 </div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">build_dnn_model</span><span class="p">():</span>
+    <span class="c1"># input layer</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">colname</span><span class="p">:</span> <span class="n">layers</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">colname</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">(),</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">'float32'</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">colname</span> <span class="ow">in</span> <span class="n">NUMERIC_COLS</span>
+    <span class="p">}</span>
+
+    <span class="c1"># feature_columns</span>
+    <span class="n">feature_columns</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">colname</span><span class="p">:</span> <span class="n">fc</span><span class="o">.</span><span class="n">numeric_column</span><span class="p">(</span><span class="n">colname</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">colname</span> <span class="ow">in</span> <span class="n">NUMERIC_COLS</span>
+    <span class="p">}</span>
+
+    <span class="c1"># Constructor for DenseFeatures takes a list of numeric columns</span>
+    <span class="c1"># and the resulting tensor takes a dictionary of Input layers</span>
+    <span class="n">dnn_inputs</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">DenseFeatures</span><span class="p">(</span><span class="n">feature_columns</span><span class="o">.</span><span class="n">values</span><span class="p">())(</span><span class="n">inputs</span><span class="p">)</span>
+
+    <span class="c1"># two hidden layers of 32 and 8 units, respectively</span>
+    <span class="n">h1</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">'relu'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'h1'</span><span class="p">)(</span><span class="n">dnn_inputs</span><span class="p">)</span>
+    <span class="n">h2</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">'relu'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'h2'</span><span class="p">)(</span><span class="n">h1</span><span class="p">)</span>
+
+    <span class="c1"># final output is a linear activation because this is a regression problem</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">'linear'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'fare'</span><span class="p">)(</span><span class="n">h2</span><span class="p">)</span>
+
+    <span class="c1"># Create model with inputs and output</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+
+    <span class="c1"># compile model (Mean Squared Error is suitable for regression)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s1">'adam'</span><span class="p">,</span> 
+                  <span class="n">loss</span><span class="o">=</span><span class="s1">'mse'</span><span class="p">,</span> 
+                  <span class="n">metrics</span><span class="o">=</span><span class="p">[</span>
+                      <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">RootMeanSquaredError</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'rmse'</span><span class="p">),</span> 
+                      <span class="s1">'mse'</span>
+                  <span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">model</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">build_dnn_model</span><span class="p">()</span>
+
+<span class="c1"># Plot the layer architecture and relationship between input features</span>
+<span class="c1">#tf.keras.utils.plot_model(model, 'dnn_model.png', show_shapes=False, rankdir='LR')</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Training-the-model">
+<a class="anchor" href="#Training-the-model" aria-hidden="true"><span class="octicon octicon-link"></span></a>Training the model<a class="anchor-link" href="#Training-the-model"> </a>
+</h1>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">NUM_EPOCHS</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="n">TRAIN_BATCH_SIZE</span> <span class="o">=</span> <span class="mi">32</span> 
+<span class="n">NUM_TRAIN_EXAMPLES</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'/tmp/data/tabular-train.csv'</span><span class="p">))</span>
+<span class="n">NUM_EVAL_EXAMPLES</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'/tmp/data/tabular-valid.csv'</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"training split has </span><span class="si">{</span><span class="n">NUM_TRAIN_EXAMPLES</span><span class="si">}</span><span class="s2"> examples</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"evaluation split has </span><span class="si">{</span><span class="n">NUM_EVAL_EXAMPLES</span><span class="si">}</span><span class="s2"> examples</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">trainds</span> <span class="o">=</span> <span class="n">load_dataset</span><span class="p">(</span><span class="s1">'/tmp/data/tabular-train*'</span><span class="p">,</span> <span class="n">TRAIN_BATCH_SIZE</span><span class="p">,</span> <span class="s1">'train'</span><span class="p">)</span>
+
+<span class="c1"># Evaluation dataset</span>
+<span class="n">evalds</span> <span class="o">=</span> <span class="n">load_dataset</span><span class="p">(</span><span class="s1">'/tmp/data/tabular-valid*'</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="s1">'eval'</span><span class="p">)</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="n">NUM_EVAL_EXAMPLES</span><span class="o">//</span><span class="mi">1000</span><span class="p">)</span>
+
+<span class="c1"># Needs to be specified since the dataset is infinite </span>
+<span class="c1"># This happens because the repeat method was used when creating the dataset</span>
+<span class="n">steps_per_epoch</span> <span class="o">=</span> <span class="n">NUM_TRAIN_EXAMPLES</span> <span class="o">//</span> <span class="n">TRAIN_BATCH_SIZE</span>
+
+<span class="c1"># Train the model and save the history</span>
+<span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">trainds</span><span class="p">,</span>
+                    <span class="n">validation_data</span><span class="o">=</span><span class="n">evalds</span><span class="p">,</span>
+                    <span class="n">epochs</span><span class="o">=</span><span class="n">NUM_EPOCHS</span>
+                    <span class="p">,</span><span class="n">steps_per_epoch</span><span class="o">=</span><span class="n">steps_per_epoch</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">trainds</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
     
     
 <div class="cell border-box-sizing code_cell rendered">
