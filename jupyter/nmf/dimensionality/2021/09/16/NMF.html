@@ -93,7 +93,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      7 min read
+      5 min read
     
 </span></p>
 
@@ -559,9 +559,9 @@ Each data point has shape (1, 500) after vectorization.
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Data has </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">internal_data</span><span class="p">)</span><span class="si">}</span><span class="s2"> elements.</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"First element: </span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">internal_data</span><span class="p">[:</span><span class="mi">1</span><span class="p">],</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
-  <span class="nb">print</span><span class="p">(</span><span class="s2">"======"</span><span class="o">*</span><span class="mi">10</span><span class="p">)</span>
-  <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Element number </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">:</span><span class="se">\n\n</span><span class="si">{</span><span class="n">d</span><span class="si">}</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+<span class="c1">#for n, d in enumerate(internal_data[:1], start=1):</span>
+<span class="c1">#  print("======"*10)</span>
+<span class="c1">#  print(f"Element number {n}:\n\n{d}\n")</span>
 </pre></div>
 
     </div>
@@ -577,72 +577,6 @@ Each data point has shape (1, 500) after vectorization.
 <pre>Data has 386102 elements.
 
 First element: 
-
-============================================================
-Element number 1:
-
-################################################################
-          PERFORMED MAINTENANCE ACTIVITY REPORT (PMAR)
-       Based on TechnipFMC document LIST-0000027333 Rev C
-################################################################
-  Report date: 02.05.2019
-  Issued by  : KOLLTVT
-################################################################
-1. STATUS AFTER MAINTENANCE
-  GREEN
-################################################################
-2. TechnipFMC SERVICE ORDER NUMBER
-  Service order no.   : 1645524
-  Customers Reference : M3: Replace
-  PONC NOI for SRC of TSEP -VO002-01
-  Customers Work Order: SUP-389
-  Customers PO number : 4503330444
-################################################################
-3. TechnipFMC EQUIPMENT DATA
-  Description....: CAP WING HUB, INBOARD, HP METAL, REINSTA
-  Equipment no...: 17128020
-  Part Number....: P6000145531
-  Serial Number..: 4500166658-002
-  Project........: Add-On Products SUP Statoil
-  Customer EQ no.: #N/A
-################################################################
-4. MAINTENANCE LOCATION
-  ONSHORE Workshop:bygg 7
-################################################################
-5. MAINTENANCE PROGRAM / ACTIVITY PERFORMED
-  INCOMING GOODS INSPECTION  - OLD EQUIPPMARNT
-  Check of equipment maintenance history (Optional):
-  - Last previous maintenance type :  N/A
-  - Date for last previous maintenance performed  :  N/A
-  - Number of runs since previous overhaul/strip down :  N/A
-################################################################
-6. DESCRIPTION OF WORK / OPERATIONS PERFORMED
-  Tag, p/n, s/n and other markings are readable
-  Maintenance work in accordance with procedure(s):
-  - task list
-  REMARKS:
-----------------------------------------------------------------
-performed rep.according to task list
-checked that pn and sn is in accordance to so
-performed spot paint fo anode bracket
-inspeckted for damage
-----------------------------------------------------------------
-################################################################
-7. RECERTIFICATION PERFORMED ACCORDING APPLICABLE REGULATIONS
-  *NONE* - (All marked with N/A.)
-################################################################
-8. PREPARATIONS FOR SHIPMENT / FURTHER USE / STORAGE
-  Old marking has been removed
-  Green tag has been written and attached to the equipment
-  Equipment has been checked for loose items / objects / tools
-################################################################
-9. SIGNATURES AND DATE
-  Work started on 02.05.2019, and completed on 02.05.2019
-  Work performed by : KOLLTVT
-  Work checked by   : KOSKRS                    on : 03.05.2019
-################################################################
-                           (PMAR END)
-################################################################
 
 </pre>
 </div>
@@ -676,15 +610,6 @@ inspeckted for damage
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Data has shape (386102, 500) after vectorization.
 Each data point has shape (1, 500) after vectorization.
-</pre>
-</div>
-</div>
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>/Users/castrma/miniconda3/envs/tensorflow_py37/lib/python3.7/site-packages/sklearn/decomposition/_nmf.py:315: FutureWarning: The 'init' value, when 'init=None' and n_components is less than n_samples and n_features, will be changed from 'nndsvd' to 'nndsvda' in 1.1 (renaming of 0.26).
-  "'nndsvda' in 1.1 (renaming of 0.26)."), FutureWarning)
 </pre>
 </div>
 </div>
