@@ -721,71 +721,6 @@ Each data point has shape (1, 500) after vectorization.
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Representation based on topics:
-  (0, 153)	0.04973787084337301
-  (0, 5)	0.059289525058434954
-  (0, 110)	0.04809683310696816
-  (0, 423)	0.052225452286301544
-  (0, 409)	0.05283281862277425
-  (0, 453)	0.05088288253691166
-  (0, 279)	0.049763770200816064
-  (0, 223)	0.0518883220529565
-  (0, 243)	0.049195508733263324
-  (0, 77)	0.03916316786200181
-  (0, 496)	0.05443417103452969
-  (0, 354)	0.04707924066652441
-  (0, 253)	0.04910025838231355
-  (0, 427)	0.04753088773577895
-  (0, 469)	0.04810794506353835
-  (0, 405)	0.05184187069868106
-  (0, 318)	0.052578940958273444
-  (0, 252)	0.05369660811334741
-  (0, 350)	0.052427923617835014
-  (0, 68)	0.05001904713095685
-  (0, 344)	0.0524571415757526
-  (0, 126)	0.07407943802377062
-  (0, 417)	0.05644296731342835
-  (0, 313)	0.06987118296819159
-  (0, 100)	0.1451933101390747
-  :	:
-  (0, 359)	0.06370074404479234
-  (0, 247)	0.05697363329468701
-  (0, 349)	0.04542282645636342
-  (0, 124)	0.1533263532340366
-  (0, 276)	0.21918082885255508
-  (0, 292)	0.11472227671346329
-  (0, 397)	0.0675999440079889
-  (0, 192)	0.09797138161877676
-  (0, 425)	0.03931185814925424
-  (0, 221)	0.0521855960251651
-  (0, 35)	0.2958819701245315
-  (0, 7)	0.2445569990270664
-  (0, 4)	0.17450808684194383
-  (0, 130)	0.11577341848183867
-  (0, 366)	0.04797325573823823
-  (0, 0)	0.053248418970213034
-  (0, 237)	0.14181535496494246
-  (0, 141)	0.04796597211561843
-  (0, 439)	0.17931837729602612
-  (0, 81)	0.05009602208367273
-  (0, 312)	0.10567358864560548
-  (0, 361)	0.09609603268421363
-  (0, 61)	0.10435307354630534
-  (0, 249)	0.3426722908248088
-  (0, 302)	0.32209735482981244
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
 </div>
     
 
@@ -805,7 +740,7 @@ Each data point has shape (1, 500) after vectorization.
 <span class="sd">  output:</span>
 <span class="sd">  plot words for topics</span>
 <span class="sd">  '''</span>
- <span class="n">vectorizer</span><span class="p">,</span> <span class="n">vect_data</span> <span class="o">=</span> <span class="n">get_vector</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+  <span class="n">vectorizer</span><span class="p">,</span> <span class="n">vect_data</span> <span class="o">=</span> <span class="n">get_vector</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
   <span class="c1">#beta_loss: beta divergence to be minimized</span>
   <span class="c1">#solver: numerical solver to use. mu = Multiplicative Update solver</span>
   <span class="c1">#max_iter: maximum number of iterations before timing out.</span>
@@ -813,7 +748,7 @@ Each data point has shape (1, 500) after vectorization.
   <span class="c1">#l1_ratio: the regularization mixing parameter</span>
   <span class="n">nmf</span> <span class="o">=</span> <span class="n">NMF</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="n">n_comp</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span>
         <span class="n">beta_loss</span><span class="o">=</span><span class="s1">'kullback-leibler'</span><span class="p">,</span> <span class="n">solver</span><span class="o">=</span><span class="s1">'mu'</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=.</span><span class="mi">1</span><span class="p">,</span>
-        <span class="n">l1_ratio</span><span class="o">=.</span><span class="mi">5</span><span class="p">)</span>
+      <span class="n">l1_ratio</span><span class="o">=.</span><span class="mi">5</span><span class="p">)</span>
   <span class="c1"># Lets learn a NMF model for the vect_data</span>
   <span class="n">nmf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">vect_data</span><span class="p">)</span>
   <span class="n">feature_names</span> <span class="o">=</span> <span class="n">vectorizer</span><span class="o">.</span><span class="n">get_feature_names</span><span class="p">()</span>
@@ -834,7 +769,7 @@ Each data point has shape (1, 500) after vectorization.
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">NMF_v2</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">internal_data</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">NMFv2</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">internal_data</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -843,6 +778,15 @@ Each data point has shape (1, 500) after vectorization.
 
 <div class="output_wrapper">
 <div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Data has shape (386102, 500) after vectorization.
+Each data point has shape (1, 500) after vectorization.
+</pre>
+</div>
+</div>
 
 <div class="output_area">
 
