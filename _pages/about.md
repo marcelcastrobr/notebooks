@@ -6,7 +6,7 @@ permalink: /about/
 
 
 
-<img src="index.assets/marcel.jpeg" alt="marcel" style="zoom:50%;" />
+<img src="images/marcel.jpeg" alt="marcel" style="zoom:50%;" />
 
 -
 
@@ -16,11 +16,11 @@ permalink: /about/
 
 
 
-> I made this website to capture my learning in the field of artificial intelligence, machine learning, data science and DevOps. Check [post](https://marcelcastrobr.github.io/) and [notebooks](https://marcelcastrobr.github.io/notebooks/).
+> I made this website to capture my learning in the field of artificial intelligence, machine learning, data science and devops. Check [post and notebooks](https://marcelcastrobr.github.io/notebooks/).
 
 
 
-I am Marcel Cavalcanti de Castro, born in Brazil and working as a Data Scientist in Norway.
+I am Marcel Cavalcanti de Castro, born in Brazil and working as a data scientist in Norway.
 
 - **2004**: start working as a network engineer in Brazil working with embedded linux and wireless ad-hoc/mesh network to provide internet access to rural areas.
 - **2006:** decided to move to Karlstad, Sweden to pursue my Ph.D. in computer science on wireless mesh networks. A lot of fun working with mathematical models, simulation and testbed experiment to check reality. :smile:
