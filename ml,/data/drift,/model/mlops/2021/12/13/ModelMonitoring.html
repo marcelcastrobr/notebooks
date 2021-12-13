@@ -131,10 +131,12 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h3"><a href="#negative-feedback-loops">Negative feedback loops</a></li>
 </ul>
 </li>
-<li class="toc-entry toc-h1"><a href="#how-and-what-to-monitor-in-ml-models">How and What to Monitor in ML models:</a></li>
+<li class="toc-entry toc-h1"><a href="#what-and-how-to-monitor-in-ml-models">What and How to Monitor in ML models:</a></li>
 <li class="toc-entry toc-h1"><a href="#references">References:</a></li>
 </ul><h1 id="machine-learning-model-monitoring">
 <a class="anchor" href="#machine-learning-model-monitoring" aria-hidden="true"><span class="octicon octicon-link"></span></a>Machine Learning Model Monitoring</h1>
+
+<p><img src="https://github.com/visenger/awesome-mlops/blob/master/awesome-mlops-intro.png" alt="MLOps. You Desing It. Your Train It. You Run It."></p>
 
 <h1 id="why-monitoring-matters">
 <a class="anchor" href="#why-monitoring-matters" aria-hidden="true"><span class="octicon octicon-link"></span></a>Why monitoring matters:</h1>
@@ -204,10 +206,10 @@ window.onload = wrap_img;
 
 <p>Negative feedback loop arises when you train data collected in production that can lead to bias.</p>
 
-<h1 id="how-and-what-to-monitor-in-ml-models">
-<a class="anchor" href="#how-and-what-to-monitor-in-ml-models" aria-hidden="true"><span class="octicon octicon-link"></span></a>How and What to Monitor in ML models:</h1>
+<h1 id="what-and-how-to-monitor-in-ml-models">
+<a class="anchor" href="#what-and-how-to-monitor-in-ml-models" aria-hidden="true"><span class="octicon octicon-link"></span></a>What and How to Monitor in ML models:</h1>
 
-<p>Below are some points that can performance while trying to monitor ML models.</p>
+<p>WHAT should we monitor in an ML model in production:</p>
 
 <ul>
   <li>Model input distribution
@@ -223,6 +225,16 @@ window.onload = wrap_img;
   </li>
   <li>Model versions</li>
   <li>Input/prediction correlation</li>
+</ul>
+
+<p>HOW should we monitor it:</p>
+
+<ul>
+  <li>Tracing your ML model through logging.
+    <ul>
+      <li>Observability of ML model while logging distributed tracings might be challenging. However, tools like Dapper, Zipkin and Jaeger could help to do the job.</li>
+    </ul>
+  </li>
 </ul>
 
 <h1 id="references">
