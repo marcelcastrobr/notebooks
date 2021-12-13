@@ -8,15 +8,15 @@
 <meta name="generator" content="Jekyll v4.1.1" />
 <meta property="og:title" content="Machine Learning Model Monitoring" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Using github actions to create a CICD data pipeline in snowflake data." />
-<meta property="og:description" content="Using github actions to create a CICD data pipeline in snowflake data." />
+<meta name="description" content="Notes on machine learning model monitoring concepts, challenges and hoot." />
+<meta property="og:description" content="Notes on machine learning model monitoring concepts, challenges and hoot." />
 <link rel="canonical" href="https://marcelcastrobr.github.io/notebooks/ml,/data/drift,/model/mlops/2021/12/13/ModelMonitoring.html" />
 <meta property="og:url" content="https://marcelcastrobr.github.io/notebooks/ml,/data/drift,/model/mlops/2021/12/13/ModelMonitoring.html" />
 <meta property="og:site_name" content="notebooks" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2021-12-13T03:19:07-06:00" />
 <script type="application/ld+json">
-{"dateModified":"2021-12-13T03:19:07-06:00","datePublished":"2021-12-13T03:19:07-06:00","url":"https://marcelcastrobr.github.io/notebooks/ml,/data/drift,/model/mlops/2021/12/13/ModelMonitoring.html","@type":"BlogPosting","headline":"Machine Learning Model Monitoring","mainEntityOfPage":{"@type":"WebPage","@id":"https://marcelcastrobr.github.io/notebooks/ml,/data/drift,/model/mlops/2021/12/13/ModelMonitoring.html"},"description":"Using github actions to create a CICD data pipeline in snowflake data.","@context":"https://schema.org"}</script>
+{"dateModified":"2021-12-13T03:19:07-06:00","datePublished":"2021-12-13T03:19:07-06:00","url":"https://marcelcastrobr.github.io/notebooks/ml,/data/drift,/model/mlops/2021/12/13/ModelMonitoring.html","@type":"BlogPosting","headline":"Machine Learning Model Monitoring","mainEntityOfPage":{"@type":"WebPage","@id":"https://marcelcastrobr.github.io/notebooks/ml,/data/drift,/model/mlops/2021/12/13/ModelMonitoring.html"},"description":"Notes on machine learning model monitoring concepts, challenges and hoot.","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/notebooks/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://marcelcastrobr.github.io/notebooks/feed.xml" title="notebooks" /><link rel="shortcut icon" type="image/x-icon" href="/notebooks/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
@@ -87,13 +87,13 @@ window.onload = wrap_img;
         <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">Machine Learning Model Monitoring</h1><p class="page-description">Using github actions to create a CICD data pipeline in snowflake data.</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-12-13T03:19:07-06:00" itemprop="datePublished">
+    <h1 class="post-title p-name" itemprop="name headline">Machine Learning Model Monitoring</h1><p class="page-description">Notes on machine learning model monitoring concepts, challenges and hoot.</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-12-13T03:19:07-06:00" itemprop="datePublished">
         Dec 13, 2021
       </time>
        • <span class="read-time" title="Estimated read time">
     
     
-      1 min read
+      3 min read
     
 </span></p>
 
@@ -129,6 +129,7 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h3"><a href="#data-skew">Data Skew:</a></li>
 <li class="toc-entry toc-h3"><a href="#model-staleness">Model Staleness</a></li>
 <li class="toc-entry toc-h3"><a href="#negative-feedback-loops">Negative feedback loops</a></li>
+<li class="toc-entry toc-h3"><a href="#model-decay">Model Decay</a></li>
 </ul>
 </li>
 <li class="toc-entry toc-h1"><a href="#what-and-how-to-monitor-in-ml-models">What and How to Monitor in ML models:</a></li>
@@ -206,6 +207,20 @@ window.onload = wrap_img;
 
 <p>Negative feedback loop arises when you train data collected in production that can lead to bias.</p>
 
+<h3 id="model-decay">
+<a class="anchor" href="#model-decay" aria-hidden="true"><span class="octicon octicon-link"></span></a>Model Decay</h3>
+
+<p>Production ML models often operation in dynamic environments (e.g. recommendation system of clothes need to change over time as the clothes style change over time.</p>
+
+<p>If the. Model is static, it will move further away from the truth, issue known as Model drift. Model drift can be split in:</p>
+
+<ul>
+  <li>
+<strong>Data drift:</strong> statistical properties of the input features changes. (e.g. distribution of age feature in a population over time)</li>
+  <li>
+<strong>Concept drift:</strong> occurs when the relationship between the features and labels changes. Examples are prediction drift and label drift.</li>
+</ul>
+
 <h1 id="what-and-how-to-monitor-in-ml-models">
 <a class="anchor" href="#what-and-how-to-monitor-in-ml-models" aria-hidden="true"><span class="octicon octicon-link"></span></a>What and How to Monitor in ML models:</h1>
 
@@ -235,6 +250,25 @@ window.onload = wrap_img;
       <li>Observability of ML model while logging distributed tracings might be challenging. However, tools like Dapper, Zipkin and Jaeger could help to do the job.</li>
     </ul>
   </li>
+  <li>Detecting drift:
+    <ul>
+      <li>Check for statistical properties of the logged data, model predictions and possibly ground truth over time. Examples of tools that can be used are TensorFlow data validation (TFDV),  <a href="https://scikit-multiflow.github.io/">scikit-multiflow library</a>, or Google Vertex prediction.</li>
+      <li>What if Drift is detected:
+        <ul>
+          <li>Determine the portion of your training dataset that is still correct.</li>
+          <li>Keep good data and discard the bad.</li>
+          <li>Create an entirely new training dataset from the new data.</li>
+        </ul>
+      </li>
+      <li>When to retrain my model:
+        <ul>
+          <li>On demand -&gt; manual retrain  the model</li>
+          <li>On schedule -&gt; when new labelled data is available at a daily/weekely/yearly basis</li>
+          <li>Availability of new training data -&gt; new data is available on an ad-hoc basis.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
 </ul>
 
 <h1 id="references">
@@ -245,6 +279,8 @@ window.onload = wrap_img;
 <p><a href="">[2] MLOps: What It Is, Why It Matters, and How to Implement It</a></p>
 
 <p><a href="https://github.com/visenger/awesome-mlops">[3] Awesome MLOps</a></p>
+
+<p><a href="https://neptune.ai/blog/retraining-model-during-deployment-continuous-training-continuous-testing">[4] Retraining Model During Deployment: Continuous Training and Continuous Testing</a></p>
 
 
   </div><a class="u-url" href="/notebooks/ml,/data/drift,/model/mlops/2021/12/13/ModelMonitoring.html" hidden></a>
