@@ -11,7 +11,7 @@ categories: ML, data drift, model drift, MLOps
 
 # Machine Learning Model Monitoring
 
-
+![MLOps. You Desing It. Your Train It. You Run It.](https://github.com/visenger/awesome-mlops/blob/master/awesome-mlops-intro.png)
 
 # Why monitoring matters:
 
@@ -64,9 +64,11 @@ Negative feedback loop arises when you train data collected in production that c
 
 
 
-# How and What to Monitor in ML models:
+# What and How to Monitor in ML models:
 
-Below are some points that can performance while trying to monitor ML models.
+
+
+WHAT should we monitor in an ML model in production:
 
 - Model input distribution
   - Errors: input values fall within an allowed set/range? 
@@ -75,6 +77,13 @@ Below are some points that can performance while trying to monitor ML models.
   - Statistical significance: e.g. if variables are normally distributes, we might expect the mean values to be within the standard euro of the mean interval.
 - Model versions
 - Input/prediction correlation
+
+
+
+HOW should we monitor it:
+
+- Tracing your ML model through logging. 
+  - Observability of ML model while logging distributed tracings might be challenging. However, tools like Dapper, Zipkin and Jaeger could help to do the job.
 
 
 
