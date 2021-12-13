@@ -1,7 +1,7 @@
 ---
 toc: true
 layout: post
-description: Using github actions to create a CICD data pipeline in snowflake data.
+description: Notes on machine learning model monitoring concepts, challenges and hoot.
 title:  "Machine Learning Model Monitoring"
 date:   2021-12-13 11:19:07 +0200
 categories: ML, data drift, model drift, MLOps
@@ -64,6 +64,17 @@ Negative feedback loop arises when you train data collected in production that c
 
 
 
+### Model Decay
+
+Production ML models often operation in dynamic environments (e.g. recommendation system of clothes need to change over time as the clothes style change over time.
+
+If the. Model is static, it will move further away from the truth, issue known as Model drift. Model drift can be split in:
+
+- **Data drift:** statistical properties of the input features changes. (e.g. distribution of age feature in a population over time)
+- **Concept drift:** occurs when the relationship between the features and labels changes. Examples are prediction drift and label drift.
+
+
+
 # What and How to Monitor in ML models:
 
 
@@ -84,6 +95,16 @@ HOW should we monitor it:
 
 - Tracing your ML model through logging. 
   - Observability of ML model while logging distributed tracings might be challenging. However, tools like Dapper, Zipkin and Jaeger could help to do the job.
+- Detecting drift:
+  - Check for statistical properties of the logged data, model predictions and possibly ground truth over time. Examples of tools that can be used are TensorFlow data validation (TFDV),  [scikit-multiflow library](https://scikit-multiflow.github.io/), or Google Vertex prediction.
+  - What if Drift is detected:
+    - Determine the portion of your training dataset that is still correct.
+    - Keep good data and discard the bad.
+    - Create an entirely new training dataset from the new data.
+  - When to retrain my model:
+    - On demand -> manual retrain  the model
+    - On schedule -> when new labelled data is available at a daily/weekely/yearly basis
+    - Availability of new training data -> new data is available on an ad-hoc basis.
 
 
 
@@ -96,4 +117,6 @@ HOW should we monitor it:
 [[2] MLOps: What It Is, Why It Matters, and How to Implement It]()
 
 [[3] Awesome MLOps](https://github.com/visenger/awesome-mlops)
+
+[[4] Retraining Model During Deployment: Continuous Training and Continuous Testing](https://neptune.ai/blog/retraining-model-during-deployment-continuous-training-continuous-testing)
 
