@@ -8,15 +8,15 @@
 <meta name="generator" content="Jekyll v4.1.1" />
 <meta property="og:title" content="Machine Learning Model Monitoring" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Notes on machine learning model monitoring concepts, challenges and hoot." />
-<meta property="og:description" content="Notes on machine learning model monitoring concepts, challenges and hoot." />
+<meta name="description" content="Notes on machine learning model monitoring concepts, challenges and howto." />
+<meta property="og:description" content="Notes on machine learning model monitoring concepts, challenges and howto." />
 <link rel="canonical" href="https://marcelcastrobr.github.io/notebooks/ml,/data/drift,/model/mlops/2021/12/13/ModelMonitoring.html" />
 <meta property="og:url" content="https://marcelcastrobr.github.io/notebooks/ml,/data/drift,/model/mlops/2021/12/13/ModelMonitoring.html" />
 <meta property="og:site_name" content="notebooks" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2021-12-13T03:19:07-06:00" />
 <script type="application/ld+json">
-{"dateModified":"2021-12-13T03:19:07-06:00","datePublished":"2021-12-13T03:19:07-06:00","url":"https://marcelcastrobr.github.io/notebooks/ml,/data/drift,/model/mlops/2021/12/13/ModelMonitoring.html","@type":"BlogPosting","headline":"Machine Learning Model Monitoring","mainEntityOfPage":{"@type":"WebPage","@id":"https://marcelcastrobr.github.io/notebooks/ml,/data/drift,/model/mlops/2021/12/13/ModelMonitoring.html"},"description":"Notes on machine learning model monitoring concepts, challenges and hoot.","@context":"https://schema.org"}</script>
+{"dateModified":"2021-12-13T03:19:07-06:00","datePublished":"2021-12-13T03:19:07-06:00","url":"https://marcelcastrobr.github.io/notebooks/ml,/data/drift,/model/mlops/2021/12/13/ModelMonitoring.html","@type":"BlogPosting","headline":"Machine Learning Model Monitoring","mainEntityOfPage":{"@type":"WebPage","@id":"https://marcelcastrobr.github.io/notebooks/ml,/data/drift,/model/mlops/2021/12/13/ModelMonitoring.html"},"description":"Notes on machine learning model monitoring concepts, challenges and howto.","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/notebooks/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://marcelcastrobr.github.io/notebooks/feed.xml" title="notebooks" /><link rel="shortcut icon" type="image/x-icon" href="/notebooks/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
@@ -87,7 +87,7 @@ window.onload = wrap_img;
         <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">Machine Learning Model Monitoring</h1><p class="page-description">Notes on machine learning model monitoring concepts, challenges and hoot.</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-12-13T03:19:07-06:00" itemprop="datePublished">
+    <h1 class="post-title p-name" itemprop="name headline">Machine Learning Model Monitoring</h1><p class="page-description">Notes on machine learning model monitoring concepts, challenges and howto.</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-12-13T03:19:07-06:00" itemprop="datePublished">
         Dec 13, 2021
       </time>
        • <span class="read-time" title="Estimated read time">
@@ -216,9 +216,9 @@ window.onload = wrap_img;
 
 <ul>
   <li>
-<strong>Data drift:</strong> statistical properties of the input features changes. (e.g. distribution of age feature in a population over time). Examples <a href="https://www.bankofengland.co.uk/bank-overground/2021/how-has-covid-affected-the-performance-of-machine-learning-models-used-by-uk-banks">here</a> and <a href="https://medium.com/eliiza-ai/why-your-models-might-not-work-after-covid-19-a00509e4920b#id_token=eyJhbGciOiJSUzI1NiIsImtpZCI6ImMxODkyZWI0OWQ3ZWY5YWRmOGIyZTE0YzA1Y2EwZDAzMjcxNGEyMzciLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJuYmYiOjE2Mzk0MDEwOTIsImF1ZCI6IjIxNjI5NjAzNTgzNC1rMWs2cWUwNjBzMnRwMmEyamFtNGxqZGNtczAwc3R0Zy5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbSIsInN1YiI6IjExMDQ2Mzc1MjEzMjEzNDkzNDM0OCIsImVtYWlsIjoibWFyY2VsY2FzdHJvYnJAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImF6cCI6IjIxNjI5NjAzNTgzNC1rMWs2cWUwNjBzMnRwMmEyamFtNGxqZGNtczAwc3R0Zy5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbSIsIm5hbWUiOiJNYXJjZWwgQ2FzdHJvIiwicGljdHVyZSI6Imh0dHBzOi8vbGgzLmdvb2dsZXVzZXJjb250ZW50LmNvbS9hLS9BT2gxNEdnbG94QXhza3ZfS01tWndGSGt2MzA0NDloZmtqdTBrU2hyQ3o1OT1zOTYtYyIsImdpdmVuX25hbWUiOiJNYXJjZWwiLCJmYW1pbHlfbmFtZSI6IkNhc3RybyIsImlhdCI6MTYzOTQwMTM5MiwiZXhwIjoxNjM5NDA0OTkyLCJqdGkiOiI3NzAxNjM5YjZiNTY5ZjY1ODk4MTIwOTZlNzg3ZWI3ZjI4MzVkYTA1In0.MF4MzS2sYN613RnhZ_79M1pr0LvheloeBZYjUkuOAyxGmXGubyKfEmHpz8YoLqDcDZb1y_h4i3woncCTyqjR9tIzxseAcW711QlMTn1liS_om4y7dcPhFXymho1i8Oxct1g7K1cKHZgjrdXX5b-S-0usbsb9_GtUS3kD4vKV7-lS3sz0JGXU87O6KiiPRPc1JS6FejJ7WPLCTAjNGTHEVNIolToE2ixhnZmtjuMgrjLfEkscn9YO1OpltLqXen7fQ1GKh28xhqR8cQc2td6E9NA9XRmVJiA4uXd9TJn5yM944_zs1O_IMAFABkUwtZYgPO2lhl2SkeBD1pxYwWottQ">here</a>.</li>
+<strong>Data drift:</strong> statistical properties of the input features changes. (e.g. distribution of age feature in a population over time). Real examples <a href="https://www.bankofengland.co.uk/bank-overground/2021/how-has-covid-affected-the-performance-of-machine-learning-models-used-by-uk-banks">here</a> and <a href="https://medium.com/eliiza-ai/why-your-models-might-not-work-after-covid-19-a00509e4920b#id_token=eyJhbGciOiJSUzI1NiIsImtpZCI6ImMxODkyZWI0OWQ3ZWY5YWRmOGIyZTE0YzA1Y2EwZDAzMjcxNGEyMzciLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJuYmYiOjE2Mzk0MDEwOTIsImF1ZCI6IjIxNjI5NjAzNTgzNC1rMWs2cWUwNjBzMnRwMmEyamFtNGxqZGNtczAwc3R0Zy5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbSIsInN1YiI6IjExMDQ2Mzc1MjEzMjEzNDkzNDM0OCIsImVtYWlsIjoibWFyY2VsY2FzdHJvYnJAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImF6cCI6IjIxNjI5NjAzNTgzNC1rMWs2cWUwNjBzMnRwMmEyamFtNGxqZGNtczAwc3R0Zy5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbSIsIm5hbWUiOiJNYXJjZWwgQ2FzdHJvIiwicGljdHVyZSI6Imh0dHBzOi8vbGgzLmdvb2dsZXVzZXJjb250ZW50LmNvbS9hLS9BT2gxNEdnbG94QXhza3ZfS01tWndGSGt2MzA0NDloZmtqdTBrU2hyQ3o1OT1zOTYtYyIsImdpdmVuX25hbWUiOiJNYXJjZWwiLCJmYW1pbHlfbmFtZSI6IkNhc3RybyIsImlhdCI6MTYzOTQwMTM5MiwiZXhwIjoxNjM5NDA0OTkyLCJqdGkiOiI3NzAxNjM5YjZiNTY5ZjY1ODk4MTIwOTZlNzg3ZWI3ZjI4MzVkYTA1In0.MF4MzS2sYN613RnhZ_79M1pr0LvheloeBZYjUkuOAyxGmXGubyKfEmHpz8YoLqDcDZb1y_h4i3woncCTyqjR9tIzxseAcW711QlMTn1liS_om4y7dcPhFXymho1i8Oxct1g7K1cKHZgjrdXX5b-S-0usbsb9_GtUS3kD4vKV7-lS3sz0JGXU87O6KiiPRPc1JS6FejJ7WPLCTAjNGTHEVNIolToE2ixhnZmtjuMgrjLfEkscn9YO1OpltLqXen7fQ1GKh28xhqR8cQc2td6E9NA9XRmVJiA4uXd9TJn5yM944_zs1O_IMAFABkUwtZYgPO2lhl2SkeBD1pxYwWottQ">here</a>.</li>
   <li>
-<strong>Concept drift:</strong> occurs when the relationship between the features and labels changes. Examples are prediction drift and label drift. Example <a href="https://towardsdatascience.com/the-covid-19-concept-drift-using-sydney-ferry-activity-data-32bbff63cb9f">here</a>.</li>
+<strong>Concept drift:</strong> occurs when the relationship between the features and labels changes. Examples are prediction drift and label drift. A real example <a href="https://towardsdatascience.com/the-covid-19-concept-drift-using-sydney-ferry-activity-data-32bbff63cb9f">here</a>.</li>
 </ul>
 
 <h1 id="what-and-how-to-monitor-in-ml-models">
