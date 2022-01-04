@@ -135,12 +135,15 @@ window.onload = wrap_img;
 
   <div class="post-content e-content" itemprop="articleBody">
     <ul class="section-nav">
-<li class="toc-entry toc-h1"><a href="#Word-to-Vector">Word to Vector </a></li>
-<li class="toc-entry toc-h1"><a href="#Oil-and-Gas-Corpus-dataset">Oil and Gas Corpus dataset </a></li>
-<li class="toc-entry toc-h1"><a href="#Word-to-Vector-for-Oil-and-Gas">Word to Vector for Oil and Gas </a>
+<li class="toc-entry toc-h1"><a href="#Part-1:-Word-Vectors">Part 1: Word Vectors </a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#Oil-and-Gas-Corpus-dataset">Oil and Gas Corpus dataset </a></li>
+<li class="toc-entry toc-h2"><a href="#Word-Vectors-for-Oil-and-Gas">Word Vectors for Oil and Gas </a>
 <ul>
 <li class="toc-entry toc-h3"><a href="#Using-Stanford-GloVe-word-vectors">Using Stanford GloVe word vectors </a></li>
 <li class="toc-entry toc-h3"><a href="#Using-Oil-&-Gas-Dataset">Using Oil &amp; Gas Dataset </a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul><!--
@@ -155,27 +158,29 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Word-to-Vector">
-<a class="anchor" href="#Word-to-Vector" aria-hidden="true"><span class="octicon octicon-link"></span></a>Word to Vector<a class="anchor-link" href="#Word-to-Vector"> </a>
+<h1 id="Part-1:-Word-Vectors">
+<a class="anchor" href="#Part-1:-Word-Vectors" aria-hidden="true"><span class="octicon octicon-link"></span></a>Part 1: Word Vectors<a class="anchor-link" href="#Part-1:-Word-Vectors"> </a>
 </h1>
 <p><a href="https://web.stanford.edu/class/cs224n/">CS224n: Natural Language Processing with Deep Learning</a>.</p>
-<h1 id="Oil-and-Gas-Corpus-dataset">
+<p>In this section I try to use the knowledge of the <a href="https://web.stanford.edu/class/archive/cs/cs224n/cs224n.1214/slides/cs224n-2021-lecture01-wordvecs1.pdf">word vector knowledge</a> but using a different corpus - oil and gas corpus from the Language Technology Group at the University of Oslo.</p>
+<h4 id="Oil-and-Gas-Corpus-dataset">
 <a class="anchor" href="#Oil-and-Gas-Corpus-dataset" aria-hidden="true"><span class="octicon octicon-link"></span></a>Oil and Gas Corpus dataset<a class="anchor-link" href="#Oil-and-Gas-Corpus-dataset"> </a>
-</h1>
+</h4>
 <p>source: <a href="http://vectors.nlpl.eu/repository/">http://vectors.nlpl.eu/repository/</a>
-ID: 75 
-"creators": [
-        {
-            "email": "farhadno@ifi.uio.no",
-            "name": "Farhad Nooralahzadeh"
-        }
-    ],
-"dimensions": 400,
-"handle": "<a href="http://vectors.nlpl.eu/repository/20/75.zip">http://vectors.nlpl.eu/repository/20/75.zip</a>",
-"id": 75,
-"iterations": 5,
-"vocabulary size": 285055,
-"window": 5</p>
+ID: 75</p>
+<div class="highlight"><pre><span></span><span class="s">"creators"</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[</span>
+        <span class="p p-Indicator">{</span>
+            <span class="s">"email"</span><span class="p p-Indicator">:</span> <span class="s">"farhadno@ifi.uio.no"</span><span class="p p-Indicator">,</span>
+            <span class="s">"name"</span><span class="p p-Indicator">:</span> <span class="s">"Farhad</span><span class="nv"> </span><span class="s">Nooralahzadeh"</span>
+        <span class="p p-Indicator">}</span>
+    <span class="p p-Indicator">]</span><span class="err">,</span>
+<span class="s">"dimensions"</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">400,</span>
+<span class="s">"handle"</span><span class="p p-Indicator">:</span> <span class="s">"http://vectors.nlpl.eu/repository/20/75.zip"</span><span class="err">,</span>
+<span class="s">"id"</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">75,</span>
+<span class="s">"iterations"</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">5,</span>
+<span class="s">"vocabulary</span><span class="nv"> </span><span class="s">size"</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">285055,</span>
+<span class="s">"window"</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">5</span>
+</pre></div>
 
 </div>
 </div>
@@ -183,9 +188,9 @@ ID: 75
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Word-to-Vector-for-Oil-and-Gas">
-<a class="anchor" href="#Word-to-Vector-for-Oil-and-Gas" aria-hidden="true"><span class="octicon octicon-link"></span></a>Word to Vector for Oil and Gas<a class="anchor-link" href="#Word-to-Vector-for-Oil-and-Gas"> </a>
-</h1>
+<h2 id="Word-Vectors-for-Oil-and-Gas">
+<a class="anchor" href="#Word-Vectors-for-Oil-and-Gas" aria-hidden="true"><span class="octicon octicon-link"></span></a>Word Vectors for Oil and Gas<a class="anchor-link" href="#Word-Vectors-for-Oil-and-Gas"> </a>
+</h2>
 </div>
 </div>
 </div>
